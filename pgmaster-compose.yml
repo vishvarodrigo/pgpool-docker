@@ -1,0 +1,21 @@
+version: '3'
+services:
+    pgmaster:
+        image: postdock/postgres
+        environment:
+            PARTNER_NODES: "10.128.0.40,10.128.0.41"
+            NODE_ID: 1 # Integer number of node
+            NODE_NAME: node1 # Node name
+            CLUSTER_NODE_NETWORK_NAME: 10.128.0.40
+            POSTGRES_PASSWORD: monkey_pass
+            POSTGRES_USER: monkey_user
+            POSTGRES_DB: monkey_db
+            CONFIGS: "listen_addresses:'*'"
+        ports:
+            - 5432:5432
+        volumes:
+            - pgadmindata:/var/lib/postgresql/data
+volumes:
+  pgadmindata:
+
+

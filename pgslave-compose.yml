@@ -1,0 +1,18 @@
+version: '3'
+services:
+    pgslave1:
+        image: postdock/postgres
+        environment:
+            PARTNER_NODES: "10.128.0.40,10.128.0.41"
+            REPLICATION_PRIMARY_HOST: 10.128.0.40
+            REPLICATION_PRIMARY_PORT: 5432
+            NODE_ID: 2
+            NODE_NAME: node2
+            CLUSTER_NODE_NETWORK_NAME: 10.128.0.41
+        ports:
+            - 5432:5432
+        #volumes:
+        #    - pgslavedata:/var/lib/postgresql/data
+
+volumes:
+  pgslavedata:

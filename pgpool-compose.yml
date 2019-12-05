@@ -1,0 +1,21 @@
+version: '3'
+services:
+    pgpool:
+        image: postdock/pgpool
+        environment:
+            PCP_USER: pcp_user
+            PCP_PASSWORD: pcp_pass
+            WAIT_BACKEND_TIMEOUT: 60
+            CHECK_USER: monkey_user
+            CHECK_PASSWORD: monkey_pass
+            CHECK_PGCONNECT_TIMEOUT: 3
+            DB_USERS: monkey_user:monkey_pass
+            BACKENDS: "0:10.128.0.40:5432:1:/var/lib/postgresql/data:ALLOW_TO_FAILOVER,1:10.128.0.41::::"
+            CONFIGS: "num_init_children:250,max_pool:4"
+        ports:
+            - 5431:5432
+            - 9898:9898 # PCP
+        volumes:
+            - pgpooldata:/var/lib/postgresql/data
+volumes:
+  pgpooldata:
